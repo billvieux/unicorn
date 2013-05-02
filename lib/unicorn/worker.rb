@@ -17,6 +17,7 @@ class Unicorn::Worker
   DROPS = []
 
   def initialize(nr)
+    Process.setrlimit(:CORE, Process.getrlimit(:CORE)[1])
     drop_index = nr / PER_DROP
     @raindrop = DROPS[drop_index] ||= Raindrops.new(PER_DROP)
     @offset = nr % PER_DROP
